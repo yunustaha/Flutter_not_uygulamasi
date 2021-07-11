@@ -20,8 +20,6 @@ class _GovdeKisimState extends State<GovdeKisim> {
   final List<TextEditingController> controllers = [
     TextEditingController(),
     TextEditingController(),
-    TextEditingController(),
-    TextEditingController()
   ];
 
   @override
@@ -153,11 +151,6 @@ class _GovdeKisimState extends State<GovdeKisim> {
                                             decoration: InputDecoration(
                                                 labelText: "İçerik"),
                                             controller: controllers[1],
-                                          ),
-                                          TextField(
-                                            decoration: InputDecoration(
-                                                labelText: "Öncelik"),
-                                            controller: controllers[2],
                                           ),
                                         ],
                                       ),
