@@ -4,20 +4,19 @@ class Items {
   String _baslik;
   String _icerik;
   String _tarih;
-  int _oncelik;
+  int _icon;
 
   // Default constructor ile alınan verileri değişkenlere eşitledik.
-  Items(this._baslik, this._icerik, this._tarih, this._oncelik);
+  Items(this._baslik, this._icerik, this._tarih, this._icon);
 
-  Items.withId(
-      this._id, this._baslik, this._icerik, this._tarih, this._oncelik);
+  Items.withId(this._id, this._baslik, this._icerik, this._tarih, this._icon);
 
   // get edebileceğimiz verileri yazdık.
   int get id => _id;
   String get baslik => _baslik;
   String get icerik => _icerik;
   String get tarih => _tarih;
-  int get oncelik => _oncelik;
+  int get icon => _icon;
 
   //Verileri map'a çevirip döndüren metod.
   Map<String, dynamic> toMap() {
@@ -28,7 +27,7 @@ class Items {
     map["notBaslik"] = _baslik;
     map["notIcerik"] = _icerik;
     map["notTarih"] = _tarih;
-    map["notOncelik"] = _oncelik;
+    map["notIcon"] = _icon;
 
     return map;
   }
@@ -39,6 +38,6 @@ class Items {
     this._baslik = map["notBaslik"];
     this._icerik = map["notIcerik"];
     this._tarih = map["notTarih"];
-    this._oncelik = map["notOncelik"];
+    this._icon = map["notIcon"];
   }
 }

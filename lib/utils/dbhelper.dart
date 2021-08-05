@@ -75,6 +75,7 @@ class DatabaseHelper {
 
   // Notları direkt liste halinde getirmek için yazılan metod.
   Future<List<Items>> notListesiniGetir() async {
+    print("Not listesi getirildi.");
     var notlarMapListesi = await notlariGetir();
     //Listeleri bu şekilde oluşturmak lazım.
     List<Items> notListesi = [];
