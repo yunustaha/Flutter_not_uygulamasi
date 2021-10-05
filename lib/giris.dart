@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_not_uygulamasi/duzenle.dart';
+import 'package:flutter_not_uygulamasi/kategori.dart';
 import 'package:flutter_not_uygulamasi/notekle.dart';
 import 'package:flutter_not_uygulamasi/utils/dbhelper.dart';
 import 'package:flutter_not_uygulamasi/utils/items.dart';
-import 'package:expandable_text/expandable_text.dart';
 
 class GovdeKisim extends StatefulWidget {
   @override
@@ -14,23 +15,23 @@ class _GovdeKisimState extends State<GovdeKisim> {
   List<Widget> _iconsForSql = [
     Icon(
       Icons.event_note_outlined,
-      size: 35,
+      size: 30,
     ),
     Icon(
       Icons.notifications,
-      size: 35,
+      size: 30,
     ),
     Icon(
       Icons.access_alarm,
-      size: 35,
+      size: 30,
     ),
     Icon(
       Icons.favorite,
-      size: 35,
+      size: 30,
     ),
     Icon(
       Icons.visibility,
-      size: 35,
+      size: 30,
     ),
   ];
 
@@ -40,12 +41,6 @@ class _GovdeKisimState extends State<GovdeKisim> {
   //Gelen tüm dataları Items nesnesi olarak bu listeye atacağız.
   List<Items> tumNotlar = [];
 
-  //İnputlara girilen verilerin değerlerini almak için controller dizisi tanımlıyoruz.
-  final List<TextEditingController> controllers = [
-    TextEditingController(),
-    TextEditingController(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,19 +48,19 @@ class _GovdeKisimState extends State<GovdeKisim> {
         iconTheme: IconThemeData(
           color: Colors.black87, //change your color here
         ),
-        backgroundColor: Colors.yellow[300],
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              "Not Uygulaması",
-              style: TextStyle(color: Colors.black),
-            ),
+        backgroundColor: Colors.yellow[200],
+        title: Column(
+          children: [
             Row(
-              children: [
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  "Not Uygulaması",
+                  style: TextStyle(color: Colors.black),
+                ),
                 TextButton(
                   style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.yellow[300],
+                    backgroundColor: Colors.yellow[200],
                   ),
                   onPressed: () {
                     // Tıklandiğinda NotEkle sayfasına yönlendirdik.
@@ -81,7 +76,8 @@ class _GovdeKisimState extends State<GovdeKisim> {
                   ),
                 ),
               ],
-            )
+            ),
+            SingleChildScrollView(child: KategoriKisim()),
           ],
         ),
       ),
@@ -108,213 +104,128 @@ class _GovdeKisimState extends State<GovdeKisim> {
           //onReorder: için key tanımlamamız gerekiyor bu yüzden id'leri key olarak tanımladık.
           key: ValueKey(productName),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Container(
-                height: MediaQuery.of(context).size.height / 20,
-                margin: EdgeInsets.only(
-                  top: 15,
+                height: MediaQuery.of(context).size.height / 6.7,
+                padding: EdgeInsets.only(
+                  left: 10,
                 ),
-                padding: EdgeInsets.only(left: 10),
-                child: ListTile(
-                  //Datadan çektiğimiz rakama göre icon belirledik.
-                  leading: _iconsForSql[tumNotlar[index].icon],
-                  // Data listesinden başlığı çektik.
-                  title: Text(
-                    tumNotlar[index].baslik,
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
-                  ),
+                child: Column(
+                  children: [
+                    // Alt kısımlardaki tarih ve düzenle, sil buttonları.
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(left: 10, right: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              tumNotlar[index].tarih,
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 15),
+                            ),
 
-                  // Data listesinden içeriği çektik.
-                  subtitle:
-                      // Devamıno oku işareti için pupbspec.yaml'a package ekledik.
-                      ExpandableText(
-                    tumNotlar[index].icerik,
-                    expandText: 'Devamı',
-                    collapseText: 'Kısalt',
-                    maxLines: 3,
-                    style: TextStyle(color: Colors.black87),
-                    linkColor: Colors.blueAccent,
-                    linkStyle:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                  ),
-                ),
-              ),
+                            //Silme butonu.
 
-              // Alt kısımlardaki tarih ve düzenle, sil buttonları.
-              Container(
-                margin: EdgeInsets.only(left: 10, right: 5, top: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      tumNotlar[index].tarih,
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        // Düzenleme ve silme buttonunun olduğu kısımlar.
-                        //Düzenle buttonu.
-                        TextButton(
-                          child: const Text(
-                            'Düzenle',
-                            style: TextStyle(
-                                color: Colors.blueAccent, fontSize: 16),
-                          ),
-                          onPressed: () {
-                            //Düzenleme için uyarı kutucuğu.
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return SingleChildScrollView(
-                                  child: AlertDialog(
-                                    title: Text(
-                                        "Dikkat!! \nDüzenleme yapıyorsunuz."),
-                                    content: Container(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          TextField(
-                                            maxLength: 26,
-                                            decoration: InputDecoration(
-                                                labelText: "Başlık"),
-                                            controller: controllers[0],
-                                          ),
-                                          TextField(
-                                            maxLength: 256,
+                            IconButton(
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                                size: 25,
+                              ),
+                              onPressed: () {
+                                //Silme için uyarı kutucuğu.
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: new Text("Dikkat!"),
+                                      content: new Text(
+                                          "Bu notu gerçekten silmek istiyor musunuz ?"),
+                                      actions: <Widget>[
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            new ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  primary: Colors.red,
+                                                  textStyle: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              child: new Text("Sil"),
+                                              onPressed: () {
+                                                //Notları silmek için tumNotlar listesinin o anki index'indeki sınıfının id verisini çağırdık.
+                                                dbHelper.notSil(
+                                                    tumNotlar[index].id);
 
-                                            //inputun içine istediğimiz kadar satır oluşturarak yazı yazmamızı sağlıyor.
-                                            keyboardType:
-                                                TextInputType.multiline,
-                                            maxLines: null,
-
-                                            decoration: InputDecoration(
-                                                labelText: "İçerik"),
-                                            controller: controllers[1],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    actions: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                primary: Colors.blueAccent,
-                                                textStyle: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            child: Text("Değiştir"),
-                                            onPressed: () {
-                                              // Notu ID'si aracılığıyla sql'de bulup verilerini değiştiriyoruz.
-                                              dbHelper.notGuncelle(Items.withId(
-                                                  tumNotlar[index].id,
-                                                  controllers[0].text,
-                                                  controllers[1].text,
-                                                  //O anki tarih bilgisini almak DateFormat("yyyy-MM-dd").format(DateTime.now()) kullandık.
-                                                  tumNotlar[index].tarih,
-                                                  tumNotlar[index].icon));
-
-                                              //İnputların valuelerini temizledik.
-                                              for (int i = 0;
-                                                  i < controllers.length;
-                                                  i++) {
-                                                controllers[i].text = "";
-                                              }
-
-                                              //AlertDialog'u kapatıp Bulunduğumuz sayfaya geri dönüyoruz.
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                primary: Colors.grey,
-                                                textStyle: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            child: Text("İptal"),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                        //Silme buttonu.
-                        TextButton(
-                          child: const Text(
-                            'Sil',
-                            style: TextStyle(color: Colors.red, fontSize: 16),
-                          ),
-                          onPressed: () {
-                            //Silme için uyarı kutucuğu.
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: new Text("Dikkat!"),
-                                  content: new Text(
-                                      "Bu notu gerçekten silmek istiyor musunuz ?"),
-                                  actions: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        new ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              primary: Colors.red,
-                                              textStyle: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold)),
-                                          child: new Text("Sil"),
-                                          onPressed: () {
-                                            //Notları silmek için tumNotlar listesinin o anki index'indeki sınıfının id verisini çağırdık.
-                                            dbHelper
-                                                .notSil(tumNotlar[index].id);
-
-                                            //AlertDialog'u kapatıp Bulunduğumuz sayfaya geri dönüyoruz.
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        new ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              primary: Colors.grey,
-                                              textStyle: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold)),
-                                          child: new Text("İptal"),
-                                          onPressed: () {
-                                            //AlertDialog'u kapatıp Bulunduğumuz sayfaya geri dönüyoruz.
-                                            Navigator.of(context).pop();
-                                          },
+                                                //AlertDialog'u kapatıp Bulunduğumuz sayfaya geri dönüyoruz.
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            new ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  primary: Colors.grey,
+                                                  textStyle: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              child: new Text("İptal"),
+                                              onPressed: () {
+                                                //AlertDialog'u kapatıp Bulunduğumuz sayfaya geri dönüyoruz.
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
                                         ),
                                       ],
-                                    ),
-                                  ],
+                                    );
+                                  },
                                 );
                               },
-                            );
-                          },
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // Tıklandiğinda NotEkle sayfasına yönlendirdik.
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  DuzenkeKisim(tumNotlar, index)),
+                        );
+                      },
+                      child: ListTile(
+                        //Datadan çektiğimiz rakama göre icon belirledik.
+                        leading: _iconsForSql[tumNotlar[index].icon],
+                        // Data listesinden başlığı çektik.
+                        title: Text(
+                          tumNotlar[index].baslik,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 18),
+                        ),
+
+                        // Data listesinden içeriği çektik.
+                        subtitle:
+                            // Devamıno oku işareti için pupbspec.yaml'a package ekledik.
+                            Text(
+                          tumNotlar[index].icerik,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.justify,
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Colors.black87,
+                          ),
+                          softWrap: true,
+                        ),
+                      ),
                     ),
                   ],
                 ),

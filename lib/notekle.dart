@@ -50,7 +50,7 @@ class _NotEkleState extends State<NotEkle> {
         iconTheme: IconThemeData(
           color: Colors.black87, //change your color here
         ),
-        backgroundColor: Colors.yellow[300],
+        backgroundColor: Colors.yellow[200],
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -58,65 +58,61 @@ class _NotEkleState extends State<NotEkle> {
               "Not Uygulaması",
               style: TextStyle(color: Colors.black),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                // Oluştur butonu
-                TextButton(
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.yellow[300],
-                  ),
-                  child: Icon(
-                    Icons.check,
-                    color: Colors.black87,
-                    size: 40,
-                  ),
-                  onPressed: () {
-                    // _girisBilgileriniOnayla() ile inputlardaki verileri sql'e kaydediyoruz.
-                    if (_girisBilgileriniOnayla() == true) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: new Text("Harika!"),
-                            content: new Text(
-                                "Notunuz başarılı bir şekilde kaydedildi!"),
-                            actions: <Widget>[
-                              new ElevatedButton(
-                                child: new Text("Tamam"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
+
+            // Oluştur butonu
+            TextButton(
+              style: OutlinedButton.styleFrom(
+                backgroundColor: Colors.yellow[200],
+              ),
+              child: Icon(
+                Icons.check,
+                color: Colors.black87,
+                size: 40,
+              ),
+              onPressed: () {
+                // _girisBilgileriniOnayla() ile inputlardaki verileri sql'e kaydediyoruz.
+                if (_girisBilgileriniOnayla() == true) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: new Text("Harika!"),
+                        content: new Text(
+                            "Notunuz başarılı bir şekilde kaydedildi!"),
+                        actions: <Widget>[
+                          new ElevatedButton(
+                            child: new Text("Tamam"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
                       );
-                    }
-                    //Herhangi bir sorunda gösterilecek hata mesajı.
-                    else {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: new Text("Üzgünüm :("),
-                            content:
-                                new Text("Beklenmedik bir sorun ortaya çıktı!"),
-                            actions: <Widget>[
-                              new ElevatedButton(
-                                child: new Text("Tamam"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
+                    },
+                  );
+                }
+                //Herhangi bir sorunda gösterilecek hata mesajı.
+                else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: new Text("Üzgünüm :("),
+                        content:
+                            new Text("Beklenmedik bir sorun ortaya çıktı!"),
+                        actions: <Widget>[
+                          new ElevatedButton(
+                            child: new Text("Tamam"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
                       );
-                    }
-                  },
-                ),
-              ],
+                    },
+                  );
+                }
+              },
             ),
           ],
         ),
@@ -183,9 +179,6 @@ class _NotEkleState extends State<NotEkle> {
                     ),
                     // input
                     TextFormField(
-                      //maksimum harf sayısı.
-                      maxLength: 256,
-
                       //inputun içine istediğimiz kadar satır oluşturarak yazı yazmamızı sağlıyor.
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
@@ -224,7 +217,6 @@ class _NotEkleState extends State<NotEkle> {
 }
 
 // Togge button widget'i
-// ignore: must_be_immutable
 class ToogleButton extends StatefulWidget {
   @override
   _ToogleButtonState createState() => _ToogleButtonState();
