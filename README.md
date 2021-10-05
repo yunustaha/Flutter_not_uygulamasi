@@ -1,16 +1,24 @@
 # flutter_not_uygulamasi
 
-A new Flutter project.
+Flutter ile geliştirdiğim not uygulaması, bu uygulama sizin basit ve hızlı bir şekilde o günün tarihini otomatik oluşturarak notlarınızı tutmanızı sağlar.
 
-## Getting Started
+## Uygulama Görselleri
 
-This project is a starting point for a Flutter application.
+![1](https://user-images.githubusercontent.com/48367134/135995509-c1c06a4d-a451-40db-99bd-f6a0743eda5c.jpg)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![2](https://user-images.githubusercontent.com/48367134/135995517-8ca8c3d4-09fc-4cb7-a8a7-55ee9fd38b45.jpg)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+![3](https://user-images.githubusercontent.com/48367134/135995528-f23ec142-877b-41e8-8851-3a534cfc4a32.jpg)
+
+
+![4](https://user-images.githubusercontent.com/48367134/135995533-8149861f-5781-4c8d-a823-6754e6810a63.jpg)
+
+
+![5](https://user-images.githubusercontent.com/48367134/135995542-a9db7b37-8143-4624-876d-6a0e8752e379.jpg)
+
+
+![6](https://user-images.githubusercontent.com/48367134/135995545-3cef9862-b75f-4756-98c7-cd170ab7acbf.jpg)
+
+
